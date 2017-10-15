@@ -1,3 +1,7 @@
+flag_add_repo=0
+
+
+
 
 function backup {
     local fnames=$@
@@ -16,15 +20,17 @@ function install_if_needed { local ls_programs=$@
     done
 }
 
-sudo echo "needs admin permission"
-pkg_mgr=yum  # apt for ubuntu; yum for centos/scientific linux
-# add repo: sl-ustc, epel
-backup /etc/yum.repos.d/sl-ustc.repo
-sudo wget https://lug.ustc.edu.cn/wiki/_export/code/mirrors/help/scientificlinux?codeblock=0 -O /etc/yum.repos.d/sl-ustc.repo
-sudo wget http://repo.fdzh.org/chrome/google-chrome-mirrors.repo -O /etc/yum.repos.d/google-chrome-mirrors.repo
+if [[ $flag_add_repo -eq 1 ]]; then
+    sudo echo "needs admin permission"
+    pkg_mgr=yum  # apt for ubuntu; yum for centos/scientific linux
+    # add repo: sl-ustc, epel
+    backup /etc/yum.repos.d/sl-ustc.repo
+    sudo wget https://lug.ustc.edu.cn/wiki/_export/code/mirrors/help/scientificlinux?codeblock=0 -O /etc/yum.repos.d/sl-ustc.repo
+    sudo wget http://repo.fdzh.org/chrome/google-chrome-mirrors.repo -O /etc/yum.repos.d/google-chrome-mirrors.repo
 
-sudo yum install epel-release
-sudo yum makecache
+    sudo yum install epel-release
+    sudo yum makecache
+fi
 
 # install basic
 install_if_needed vim git guake terminator google-chrome-stable tmux
@@ -37,7 +43,7 @@ install_if_needed vim git guake terminator google-chrome-stable tmux
 function override {
     local s_fn=$1
     local d_fn=$2
-    if [[ -e d_fn ]]; then
+    if [[ -e $d_fn ]]; then
         mv ${d_fn} ${d_fn}.bk
     else
         mkdir -p $(dirname ${d_fn})
@@ -48,3 +54,9 @@ function override {
 
 override "./inputrc" "${HOME}/.inputrc"
 override "./terminator.config" "${HOME}/.config/terminator/config"
+override "./tmux.conf" "${HOME}/.tmux.conf"
+
+# gnome setting
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-up "['<Control><Shift>k', '<Control><Alt>Up']"
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-down "['<Control><Shift>j', '<Control><Alt>Up']"
+
