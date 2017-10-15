@@ -34,10 +34,18 @@ install_if_needed vim git guake terminator google-chrome-stable tmux
 # install shadowsocks-qt5
 #sudo add-apt-repository ppa:hzwhuang/ss-qt5
 #sudo apt-get install shadowsocks-qt5
- 
-# config .inputrc
-echo "\
-\"\C-p\": history-search-backward
-\"\C-n\": history-search-forward
-set show-all-if-ambiguous on
-set completion-ignore-case on" > ~/.inputrc
+
+function override {
+    local s_fn=$1
+    local d_fn=$2
+    if [[ -e d_fn ]]; then
+        mv ${d_fn} ${d_fn}.bk
+    else
+        mkdir -p $(dirname ${d_fn})
+    fi
+    
+    cp ${s_fn} ${d_fn}
+}
+
+override "./inputrc" "~/.inputrc"
+override "./terminator.config" "~/.config/terminator/config"
