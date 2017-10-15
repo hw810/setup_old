@@ -1,3 +1,4 @@
+
 function backup {
     local fnames=$@
     for fn in ${fnames}; do
@@ -45,5 +46,5 @@ function override {
     cp ${s_fn} ${d_fn}
 }
 
-override "./inputrc" "~/.inputrc"
-override "./terminator.config" "~/.config/terminator/config"
+override "./inputrc" "${HOME}/.inputrc"
+override "./terminator.config" "${HOME}/.config/terminator/config"
