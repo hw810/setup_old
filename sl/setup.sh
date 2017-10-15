@@ -1,5 +1,3 @@
-set -e
-
 function backup {
     local fnames=$@
     for fn in ${fnames}; do
