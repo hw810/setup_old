@@ -49,7 +49,7 @@ function override {
         mkdir -p $(dirname ${d_fn})
     fi
     
-    cp ${s_fn} ${d_fn}
+    cp -r ${s_fn} ${d_fn}
 }
 
 override "./inputrc" "${HOME}/.inputrc"
@@ -60,3 +60,7 @@ override "./tmux.conf" "${HOME}/.tmux.conf"
 gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-up "['<Control><Shift>k', '<Control><Alt>Up']"
 gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-down "['<Control><Shift>j', '<Control><Alt>Up']"
 
+
+#vim
+override "../vim_runtime" "${HOME}/.vim_runtime"
+sh ~/.vim_runtime/install_awesome_vimrc.sh
