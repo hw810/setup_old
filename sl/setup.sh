@@ -64,3 +64,5 @@ gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-down "['<Cont
 #vim
 override "../vim_runtime" "${HOME}/.vim_runtime"
 sh ~/.vim_runtime/install_awesome_vimrc.sh
+
+git clone https://github.com/Valloric/YouCompleteMe.git ~/.vim_runtime/sources_non_forked/
