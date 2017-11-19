@@ -55,6 +55,10 @@ function override {
 override "./inputrc" "${HOME}/.inputrc"
 override "./terminator.config" "${HOME}/.config/terminator/config"
 override "./tmux.conf" "${HOME}/.tmux.conf"
+override "./bash_prompt" "${HOME}/.bash_prompt"
+echo "source ~/.bash_prompt" >> ~/.bashrc
+
+
 
 # gnome setting
 gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-up "['<Control><Shift>k', '<Control><Alt>Up']"
